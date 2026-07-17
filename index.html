@@ -2,7 +2,35 @@
 <html lang="en">
   <head>
     <style>
-/* 灵动主题按钮 */
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>主题切换</title>
+
+<style>
+/* ===== 基础样式 ===== */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #000000;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ===== 系统暗色模式 ===== */
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme]) {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+}
+
+/* ===== 手动深色主题 ===== */
+[data-theme="dark"] {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ===== 按钮样式 ===== */
 #themeBtn {
   position: fixed;
   top: 15px;
@@ -15,27 +43,23 @@
   border-radius: 30px;
   font-size: 14px;
   z-index: 9999;
-  /* 平滑过渡 */
-  transition: all 0.2s ease;
+  transition: 
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
-/* 鼠标放上去：轻微弹大 + 阴影 */
 #themeBtn:hover {
   transform: scale(1.08);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* 鼠标按下：回弹一下 */
 #themeBtn:active {
   transform: scale(0.95);
 }
 
-/* 深色主题 */
-.dark-theme {
-  background: #000 !important;
-  color: #fff !important;
-}
-.dark-theme #themeBtn {
+[data-theme="dark"] #themeBtn {
   background: #222;
   color: #fff;
   border-color: #555;
@@ -46,36 +70,31 @@
 
 <script>
 const btn = document.getElementById('themeBtn');
-btn.onclick = () => {
-  document.body.classList.toggle('dark-theme');
+const root = document.body;
+
+const setTheme = (theme) => {
+  if (theme === 'dark') {
+    root.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️ 浅色模式';
+  } else {
+    root.removeAttribute('data-theme');
+    btn.textContent = '🌙 深色模式';
+  }
+  localStorage.setItem('theme', theme);
 };
-</script><meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-        body {
-  min-height: 100vh;
-  background: #ffffff;
-  color: #000000;
+
+// 初始化
+const saved = localStorage.getItem('theme');
+if (saved) {
+  setTheme(saved);
 }
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #1a1a1a;
-    color: #ffffff;
-  }
-  .com, .cok, .cod, .cof, .cot, .doe, .sa, .sb, .nanana {
-    color: #ffffff !important;
-  }
-}
- body {
-      min-height: 100vh;
-      background: #fff;
-    }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #1a1a1a;
-      }
-    }
+
+btn.onclick = () => {
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  setTheme(isDark ? 'light' : 'dark');
+};
+</script>
+  <style>
       .com {
         color: green;
       }
@@ -121,6 +140,12 @@ btn.onclick = () => {
       .qiba{
         color: green;
       }
+      .pishiwofangde{
+        color: green;
+      }
+      .youyouweidianyingjiu{
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -162,11 +187,14 @@ btn.onclick = () => {
     <h3>佑佑微电影9</h3>
     <h3 class="pishiwofangde">已完成（可从亲宝宝、微信观看）</h3>
          <a href="https://www.bilibili.com/video/BV1tvj26XEbG/" target="_blank">点击查看影片<a/>
-    <h5 class="cot">问题可以在微信私信我哦！</h5>
-    <h6 class="shijing">版本号:1.0.1.6</h6>
+    <h3>佑佑微电影9Pro</h3>
+    <h3 class="youyouweidianyingjiu">正在准备（预计7月30日发布）</h3>
+    <h4 class="cot">问题反馈：邮箱【2565531040@qq.com】 </h4>
+    <h6 class="shijing">版本号:1.0.1.7</h6>
     <h6 class="kakakakaka">更新内容：
-      1.更新佑佑微电影9的更新情况
-      <br>2.上线佑佑微电影9的在线看
+      1.上线佑佑微电影9Pro的预告
+      <br>2.修改问题反馈方式
+      <br>3.处理相关网站问题
     </h6>
     
     
